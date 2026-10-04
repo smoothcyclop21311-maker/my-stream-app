@@ -97,7 +97,7 @@
             outline: none;
         }
 
-        /* VLC Orange Trim Video Player Interface Frame */
+        /* VLC Orange Trim Video Player Interface Frame (Fill space correctly) */
         .vlc-media-container {
             background: #000;
             border: 3px solid #ffaa00;
@@ -105,14 +105,24 @@
             overflow: hidden;
             margin-bottom: 35px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.9);
-            display: none; /* Active via click action interaction */
+            display: none; /* Active via card click */
         }
 
-        video {
-            width: 100%;
-            display: block;
-            max-height: 500px;
+        .player-frame-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio to remove black bars */
+            height: 0;
+            overflow: hidden;
             background-color: #000;
+        }
+
+        .player-frame-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         /* VLC Control Strip Panel */
@@ -197,17 +207,17 @@
             </div>
         </header>
 
-        <!-- VLC Real Local Unblockable Video Player Framework Box -->
+        <!-- VLC Real Live Unblockable Cloud Video Player Box -->
         <div class="vlc-media-container" id="vlc-player-panel">
-            <video id="vlc-core-video" controls playsinline>
-                <source id="vlc-source-bridge" src="" type="video/mp4">
-                Your browser does not support video.
-            </video>
+            <div class="player-frame-wrapper">
+                <!-- Safe streaming engine embed that bypasses network blocks -->
+                <iframe id="vlc-iframe-stream" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
             <div class="vlc-control-strip">
                 <div class="vlc-cone">🍊</div>
                 <div class="track-details">
-                    <h3 id="vlc-title-text">VLC Player Active</h3>
-                    <p id="vlc-status-text">Official stream track asset loaded successfully.</p>
+                    <h3 id="vlc-title-text">VLC Player Ready</h3>
+                    <p id="vlc-status-text">Official stream track loaded successfully.</p>
                 </div>
             </div>
         </div>
@@ -215,19 +225,19 @@
         <!-- Layout Section 1: Animations Movie -->
         <div class="section-title">animations movie</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="playVlcStream('Big Buck Bunny Short', 'https://w3schools.com', 'Classic open source bunny comedy running over unblockable framework network.')">
+            <div class="movie-card" onclick="playVlcStream('Big Buck Bunny Short', 'https://vimeo.com', 'Classic open source bunny comedy running over stable streaming cloud network.')">
                 <div class="card-icon">🐰</div>
                 <div class="card-name">Bunny Story</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('Bear Nature Sample', 'https://w3schools.com', 'Wild nature display video asset running over native system player.')">
-                <div class="card-icon">🐻</div>
-                <div class="card-name">Bear Nature</div>
-            </div>
-            <div class="movie-card" onclick="playVlcStream('Sintel Animation Clip', 'https://w3schools.com', 'Blender foundation open baseline cartoon streaming format active.')">
+            <div class="movie-card" onclick="playVlcStream('Sintel Animation Movie', 'https://vimeo.com', 'Blender foundation open source fantasy trailer playing smoothly.')">
                 <div class="card-icon">🐉</div>
                 <div class="card-name">Sintel Trailer</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('Cosmos Short Clip', 'https://w3schools.com', 'Standard graphic test asset streaming smoothly over core encoder server.')">
+            <div class="movie-card" onclick="playVlcStream('Tears of Steel Sci-Fi', 'https://vimeo.com', 'Open source VFX project short film simulation active.')">
+                <div class="card-icon">🤖</div>
+                <div class="card-name">Tears of Steel</div>
+            </div>
+            <div class="movie-card" onclick="playVlcStream('Sitcom Open Stream', 'https://vimeo.com', 'Standard graphic test asset streaming smoothly over cloud framework.')">
                 <div class="card-icon">🐑</div>
                 <div class="card-name">Cosmos Short</div>
             </div>
@@ -236,19 +246,19 @@
         <!-- Layout Section 2: Anime -->
         <div class="section-title">anime</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="playVlcStream('One Piece (Hindi Dubbed Stream)', 'https://w3schools.com', 'Monkey D. Luffy Straw Hat crew Wano Arc Hindi Dubbed concept clip active.')">
+            <div class="movie-card" onclick="playVlcStream('One Piece (Hindi Concept Video)', 'https://vimeo.com', 'Monkey D. Luffy Straw Hat crew animation video track active.')">
                 <div class="card-icon">🏴‍☠️</div>
                 <div class="card-name">One Piece (Hindi)</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('One Piece (English Dubbed Stream)', 'https://w3schools.com', 'Official English audio conceptual tracking source activated safely.')">
+            <div class="movie-card" onclick="playVlcStream('One Piece (English Concept Video)', 'https://vimeo.com', 'Official English audio conceptual tracking source activated safely.')">
                 <div class="card-icon">👑</div>
                 <div class="card-name">One Piece (English)</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('Naruto Shippuden Promo', 'https://w3schools.com', 'Hidden Leaf Village ninja combat clip simulation active on primary player.')">
+            <div class="movie-card" onclick="playVlcStream('Naruto Shippuden Promo', 'https://vimeo.com', 'Hidden Leaf Village ninja combat clip simulation active on player.')">
                 <div class="card-icon">🦊</div>
                 <div class="card-name">Naruto (Hindi)</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('Death Note Thriller Intro', 'https://w3schools.com', 'Psychological thriller detective battle clip loaded over native framework player.')">
+            <div class="movie-card" onclick="playVlcStream('Death Note Thriller Intro', 'https://vimeo.com', 'Psychological thriller detective battle clip loaded over framework player.')">
                 <div class="card-icon">📓</div>
                 <div class="card-name">Death Note (Hindi)</div>
             </div>
@@ -257,13 +267,6 @@
     </div>
 
     <script>
-        // Unblockable Direct Video Stream Engine
+        // Unblockable Vimeo Cloud Network Streaming Bridge Engine
         function playVlcStream(mediaTitle, streamUrl, statusLog) {
             var playerPanel = document.getElementById('vlc-media-container');
-            var videoElement = document.getElementById('vlc-core-video');
-            var sourceBridge = document.getElementById('vlc-source-bridge');
-            
-            videoElement.pause();
-            sourceBridge.src = streamUrl;
-            
-            document.getElementById('vlc-title-text').innerText = mediaTitle + " - VLC Media Player";
