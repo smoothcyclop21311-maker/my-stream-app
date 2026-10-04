@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamHub - Fixed Player</title>
+    <title>StreamHub - Real Player</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
         body { background-color: #111; color: #fff; text-align: center; }
@@ -12,7 +12,7 @@
         .logo-text { font-size: 24px; font-weight: bold; }
         .main-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         .player-wrapper { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        video { width: 100%; display: block; max-height: 500px; }
+        video { width: 100%; display: block; max-height: 500px; background-color: #000; }
         .video-info { padding: 20px; background: #1a1a1a; text-align: left; }
         .video-info h2 { color: #007bff; margin-bottom: 5px; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
@@ -29,31 +29,32 @@
     </header>
 
     <div class="main-container">
-        <!-- Video Player Section -->
+        <!-- Main Video Player -->
         <div class="player-wrapper">
-            <video id="main-player" controls autoplay playsinline>
+            <!-- Ismein autoplay aur poster hataya hai taaki player glitch na kare -->
+            <video id="main-player" controls preload="auto">
                 <source id="video-source" src="https://zencdn.net" type="video/mp4">
                 Your browser does not support video.
             </video>
             <div class="video-info">
                 <h2 id="player-title">Oceans Nature Video</h2>
-                <p id="player-desc">Default sample video running from backup server.</p>
+                <p id="player-desc">Neeche di gayi list se video select karein aur play button dabayein.</p>
             </div>
         </div>
 
         <h3 style="text-align: left; margin-bottom: 10px;">Select a Video to Play:</h3>
         
-        <!-- Video Grid Links -->
+        <!-- Alag servers ki safe testing videos -->
         <div class="video-grid">
-            <div class="video-card" onclick="playVideo('Oceans Nature', 'Beautiful open-source video of ocean wildlife.', 'https://zencdn.net', '🌊')">
+            <div class="video-card" onclick="changeSource('Oceans Nature', 'Beautiful open-source video of ocean wildlife.', 'https://zencdn.net')">
                 <div class="emoji-box">🌊</div>
                 <h4>Oceans Nature</h4>
             </div>
-            <div class="video-card" onclick="playVideo('Bunny Animation', 'Classic animated bunny comedy short film.', 'https://html5demos.com', '🐰')">
+            <div class="video-card" onclick="changeSource('Bunny Animation', 'Classic animated bunny comedy short film.', 'https://html5demos.com')">
                 <div class="emoji-box">🐰</div>
                 <h4>Bunny Animation</h4>
             </div>
-            <div class="video-card" onclick="playVideo('Sintel Trailer', 'Fantasy dragon and warrior short trailer.', 'https://w3.org', '🐉')">
+            <div class="video-card" onclick="changeSource('Sintel Trailer', 'Fantasy dragon and warrior short trailer.', 'https://w3.org')">
                 <div class="emoji-box">🐉</div>
                 <h4>Sintel Trailer</h4>
             </div>
@@ -61,26 +62,28 @@
     </div>
 
     <script>
-        const player = document.getElementById('main-player');
-        const videoSource = document.getElementById('video-source');
-        const playerTitle = document.getElementById('player-title');
-        const playerDesc = document.getElementById('player-desc');
-
-        function playVideo(title, desc, url, emoji) {
-            videoSource.src = url;
-            playerTitle.innerText = title;
-            playerDesc.innerText = desc;
+        function changeSource(title, desc, url) {
+            var video = document.getElementById('main-player');
+            var source = document.getElementById('video-source');
             
-            player.removeAttribute('poster'); 
-            player.load();
+            // Player ko reset karne aur naya path load karne ka sahi tareeka
+            video.pause();
+            source.src = url;
+            video.load();
             
-            // Force play promise check
-            setTimeout(() => {
-                player.play().catch(error => {
-                    console.log("Autoplay blocked, user click needed:", error);
+            document.getElementById('player-title').innerText = title;
+            document.getElementById('player-desc').innerText = desc;
+            
+            // Play promise handle karne ke liye safe system
+            var playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    console.log("Playing started successfully!");
+                }).catch(function(error) {
+                    console.log("Playback failed, user needs to click play button manually.");
                 });
-            }, 100);
-
+            }
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
