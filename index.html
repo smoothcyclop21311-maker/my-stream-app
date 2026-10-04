@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeHub - Video Edition</title>
+    <title>AnimeHub - Local Offline Player</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #0d0d13; color: #fff; text-align: center; }
@@ -12,20 +12,19 @@
         .logo-text { font-size: 24px; font-weight: bold; }
         .main-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         
-        /* 100% Safe Local Video Player HTML5 Framework */
+        /* Fixed Video Player Frame */
         .player-wrapper { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid #1f1f2e; }
         video { width: 100%; display: block; max-height: 500px; background-color: #000; }
         
-        .video-info { padding: 20px; background: #13131a; text-align: left; }
+        /* Local Upload Custom Design */
+        .upload-section { background: #13131a; padding: 25px; border-radius: 10px; border: 2px dashed #007bff; margin-bottom: 30px; text-align: center; }
+        .file-input-label { background: #007bff; color: white; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; display: inline-block; transition: 0.2s; }
+        .file-input-label:hover { background: #0056b3; }
+        #local-file-chooser { display: none; }
+        
+        .video-info { padding: 20px; background: #13131a; text-align: left; border-radius: 8px; border: 1px solid #1f1f2e; }
         .video-info h2 { color: #007bff; margin-bottom: 5px; }
         .audio-tag { display: inline-block; background: #ffc107; color: #000; font-weight: bold; padding: 3px 8px; border-radius: 4px; font-size: 12px; margin-bottom: 10px; }
-        .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; }
-        .anime-card { background: #13131a; border-radius: 10px; padding: 20px; border: 1px solid #1f1f2e; text-align: left; }
-        .anime-title { font-size: 18px; margin-bottom: 15px; font-weight: bold; }
-        .btn-group { display: flex; gap: 10px; }
-        .lang-btn { flex: 1; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; transition: 0.2s; }
-        .btn-hindi { background-color: #28a745; }
-        .btn-english { background-color: #17a2b8; }
     </style>
 </head>
 <body>
@@ -36,48 +35,51 @@
     </header>
 
     <div class="main-container">
-        <!-- Safe HTML5 Player -->
+        
+        <!-- Local Custom File Injector (Yeh kbi block ni hoga) -->
+        <div class="upload-section">
+            <h3 style="margin-bottom: 15px;">Apne PC Se Video Select Karein:</h3>
+            <label for="local-file-chooser" class="file-input-label">📁 Choose Video File</label>
+            <input type="file" id="local-file-chooser" accept="video/*">
+            <p style="color: #888; font-size: 12px; margin-top: 10px;">Aap apne PC se One Piece ka koi bhi episode ya clip select kar ke yahan chala sakte hain!</p>
+        </div>
+
+        <!-- HTML5 Secure Player -->
         <div class="player-wrapper">
-            <video id="anime-player" controls preload="auto">
-                <source id="video-source" src="https://w3schools.com" type="video/mp4">
+            <video id="anime-player" controls>
+                <source id="video-source" src="" type="video/mp4">
                 Your browser does not support video.
             </video>
             <div class="video-info">
-                <span id="player-audio" class="audio-tag">Language: Hindi Dubbed</span>
-                <h2 id="player-title">One Piece (Hindi Concept Stream)</h2>
-                <p id="player-desc">Neeche se dub select karein aur video player ke center mein click karke real sample video play karein.</p>
+                <span id="player-audio" class="audio-tag">Offline Storage Active</span>
+                <h2 id="player-title">Custom Local Player</h2>
+                <p id="player-desc">Ooper diye gaye button se koi bhi video (.mp4 format) select karein, wo direct bina internet ke is website par play ho jayegi.</p>
             </div>
         </div>
 
-        <h3 style="text-align: left; margin-bottom: 15px; color: #8f8fbc;">Select Anime Audio Source:</h3>
-        
-        <div class="anime-grid">
-            <!-- One Piece Masked Card -->
-            <div class="anime-card">
-                <div class="anime-title">🏴‍☠️ One Piece (Season 1)</div>
-                <div class="btn-group">
-                    <button class="lang-btn btn-hindi" onclick="loadVideo('One Piece (Hindi Concept Stream)', 'Language: Hindi Dubbed Loaded', 'https://w3schools.com', 'Luffy ki practice stream load ho chuki hai. Upar play button dabein.')">🗣️ Hindi Dub</button>
-                    <button class="lang-btn btn-english" onclick="loadVideo('One Piece (English Concept Stream)', 'Language: English Dubbed Loaded', 'https://w3schools.com', 'English concept stream load ho chuki hai. Upar video play karein.')">🇬🇧 English Dub</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        function loadVideo(title, audioType, url, description) {
-            var video = document.getElementById('anime-player');
-            var source = document.getElementById('video-source');
-            
-            video.pause();
-            source.src = url;
-            video.load();
-            
-            document.getElementById('player-title').innerText = title;
-            document.getElementById('player-audio').innerText = audioType;
-            document.getElementById('player-desc').innerText = description;
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        // Direct Client Browser file stream bridge
+        document.getElementById('local-file-chooser').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var player = document.getElementById('anime-player');
+                var source = document.getElementById('video-source');
+                
+                // Create a temporary unblockable virtual path
+                var fileURL = URL.createObjectURL(file);
+                
+                source.src = fileURL;
+                document.getElementById('player-title').innerText = file.name;
+                document.getElementById('player-desc').innerText = "Aapki select ki hui local file kamyabi se load ho chuki hai. Play icon par click karein.";
+                
+                player.load();
+                player.play().catch(function(e) {
+                    console.log("Play requires user gesture.");
+                });
+            }
+        });
     </script>
 </body>
 </html>
