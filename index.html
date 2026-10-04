@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream App - Custom Homepage</title>
+    <title>Stream App - VLC Media Edition</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         body {
@@ -18,7 +18,7 @@
             padding: 20px;
         }
 
-        /* Border Box jaise aapke sketch mein hai */
+        /* Border Box jaise aapke sketch mein tha */
         .container-border {
             border: 4px solid #ffffff;
             border-radius: 12px;
@@ -34,7 +34,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid #1f1f2e;
         }
@@ -45,7 +45,7 @@
             gap: 15px;
         }
 
-        /* Aapka manga hua Blue Circle Logo */
+        /* Blue Circle Logo */
         .blue-circle {
             width: 35px;
             height: 35px;
@@ -57,10 +57,9 @@
         .app-title {
             font-size: 28px;
             font-weight: bold;
-            letter-spacing: 1px;
         }
 
-        /* Search Bar jaise aapne sketch mein draw kiya */
+        /* Search Bar */
         .search-container input {
             width: 250px;
             padding: 10px 15px;
@@ -72,11 +71,48 @@
             outline: none;
         }
 
-        .search-container input:focus {
-            border-color: #007bff;
+        /* VLC Video Player Container Layout (Fill space without black bars) */
+        .vlc-player-wrapper {
+            background: #000;
+            border: 3px solid #ffaa00; /* VLC Cone Orange Theme color border */
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            display: none; /* File select hone par active hoga */
         }
 
-        /* Headings Design (animations movie & anime) */
+        video {
+            width: 100%;
+            display: block;
+            max-height: 550px;
+            background-color: #000;
+            object-fit: contain; /* Black side bars handle karne ke liye fill framework */
+        }
+
+        .vlc-bar {
+            background: #22222a;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid #333;
+        }
+
+        .vlc-cone-icon {
+            font-size: 24px;
+            animation: rotate 4s infinite linear;
+        }
+
+        .video-details h3 {
+            color: #ffaa00;
+            font-size: 18px;
+        }
+
+        /* Hidden Core File Inputs */
+        #hidden-vlc-picker { display: none; }
+
+        /* Headings (animations movie & anime) */
         .section-title {
             font-size: 26px;
             text-align: left;
@@ -88,7 +124,7 @@
             padding-left: 10px;
         }
 
-        /* 4 Blocks Grid Layout (Jaise aapke sketch mein 4-4 boxes hain) */
+        /* 4 Blocks Grid Layout */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -96,7 +132,6 @@
             margin-bottom: 40px;
         }
 
-        /* Grid ke rectangular boxes */
         .movie-card {
             border: 2px solid #ffffff;
             border-radius: 8px;
@@ -112,7 +147,7 @@
         }
 
         .movie-card:hover {
-            border-color: #007bff;
+            border-color: #ffaa00;
             transform: scale(1.05);
             background-color: #252538;
         }
@@ -126,30 +161,16 @@
             font-size: 14px;
             font-weight: bold;
             color: #e0e0e0;
-        }
-
-        /* Responsive designing taaki mobile par kharab na ho */
-        @media (max-width: 768px) {
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            header {
-                flex-direction: column;
-                gap: 20px;
-                align-items: flex-start;
-            }
-            .search-container input {
-                width: 100%;
-            }
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Outer Border Content -->
+    <!-- Main Outer Border Content Box -->
     <div class="container-border">
         
-        <!-- Header: Logo + Title + Search -->
+        <!-- Header Section -->
         <header>
             <div class="logo-section">
                 <div class="blue-circle"></div>
@@ -160,22 +181,40 @@
             </div>
         </header>
 
+        <!-- VLC Engine Core Hub Media Player Window -->
+        <div class="vlc-player-wrapper" id="player-window">
+            <video id="vlc-core-engine" controls loop>
+                <source id="vlc-source-bridge" src="" type="video/mp4">
+                Your system does not support this file tracking format.
+            </video>
+            <div class="vlc-bar">
+                <div class="vlc-cone-icon">🍊</div>
+                <div class="video-details">
+                    <h3 id="vlc-stream-title">Playing Track</h3>
+                    <p style="font-size: 12px; color: #aaa;" id="vlc-stream-status">Local Media Player stream is running continuous simulation loop.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden input system activated via cards click interaction -->
+        <input type="file" id="hidden-vlc-picker" accept="video/mp4, video/*">
+
         <!-- Section 1: Animations Movie -->
         <div class="section-title">animations movie</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="alert('Playing Animation Movie 1')">
+            <div class="movie-card" onclick="triggerVlcMedia('Lion King (Clip Simulation)')">
                 <div class="card-icon">🦁</div>
                 <div class="card-name">Lion King Clip</div>
             </div>
-            <div class="movie-card" onclick="alert('Playing Animation Movie 2')">
+            <div class="movie-card" onclick="triggerVlcMedia('Bunny Short Movie')">
                 <div class="card-icon">🐰</div>
                 <div class="card-name">Bunny Story</div>
             </div>
-            <div class="movie-card" onclick="alert('Playing Animation Movie 3')">
+            <div class="movie-card" onclick="triggerVlcMedia('Kung Fu Panda Edition')">
                 <div class="card-icon">🐼</div>
                 <div class="card-name">Kung Fu Panda</div>
             </div>
-            <div class="movie-card" onclick="alert('Playing Animation Movie 4')">
+            <div class="movie-card" onclick="triggerVlcMedia('Cars Movie Promo')">
                 <div class="card-icon">🚗</div>
                 <div class="card-name">Cars Movie</div>
             </div>
@@ -184,19 +223,19 @@
         <!-- Section 2: Anime -->
         <div class="section-title">anime</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="alert('Opening One Piece Hindi Dub')">
+            <div class="movie-card" onclick="triggerVlcMedia('One Piece - Hindi Dubbed Episode')">
                 <div class="card-icon">🏴‍☠️</div>
                 <div class="card-name">One Piece (Hindi)</div>
             </div>
-            <div class="movie-card" onclick="alert('Opening One Piece English Dub')">
+            <div class="movie-card" onclick="triggerVlcMedia('One Piece - English Dubbed Episode')">
                 <div class="card-icon">👑</div>
                 <div class="card-name">One Piece (English)</div>
             </div>
-            <div class="movie-card" onclick="alert('Opening Naruto Hindi Dub')">
+            <div class="movie-card" onclick="triggerVlcMedia('Naruto Shippuden - Hindi Season 1')">
                 <div class="card-icon">🦊</div>
                 <div class="card-name">Naruto (Hindi)</div>
             </div>
-            <div class="movie-card" onclick="alert('Opening Death Note Hindi Dub')">
+            <div class="movie-card" onclick="triggerVlcMedia('Death Note - Hindi Exclusive')">
                 <div class="card-icon">📓</div>
                 <div class="card-name">Death Note (Hindi)</div>
             </div>
@@ -204,5 +243,43 @@
 
     </div>
 
+    <script>
+        var targetedAnimeTitle = "";
+
+        // Trigger function on card click interaction
+        function triggerVlcMedia(animeName) {
+            targetedAnimeTitle = animeName;
+            // File input prompt activation
+            document.getElementById('hidden-vlc-picker').click();
+        }
+
+        // Active listener when local MP4 video file gets selected
+        document.getElementById('hidden-vlc-picker').addEventListener('change', function(event) {
+            var selectedFile = event.target.files[0];
+            if (selectedFile) {
+                var playerContainer = document.getElementById('player-window');
+                var videoEngine = document.getElementById('vlc-core-engine');
+                var sourceBridge = document.getElementById('vlc-source-bridge');
+                
+                // Unblockable local virtual stream generation path
+                var systemVirtualURL = URL.createObjectURL(selectedFile);
+                
+                sourceBridge.src = systemVirtualURL;
+                document.getElementById('vlc-stream-title').innerText = targetedAnimeTitle;
+                document.getElementById('vlc-stream-status').innerText = "File Name: " + selectedFile.name + " | Running in VLC continuous player mode.";
+                
+                // Open Player block layout panel window view
+                playerContainer.style.display = "block";
+                
+                videoEngine.load();
+                videoEngine.play().catch(function(err) {
+                    console.log("Manual play gesture action needed initialization.");
+                });
+
+                // Smooth scrolling upward view directly on target media player display top anchor
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    </script>
 </body>
 </html>
