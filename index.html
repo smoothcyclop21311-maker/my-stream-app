@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeHub - Fixed Playback</title>
+    <title>AnimeHub - Smooth Player</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #0d0d13; color: #fff; text-align: center; }
@@ -11,17 +11,19 @@
         .blue-circle-logo { width: 40px; height: 40px; background-color: #007bff; border-radius: 50%; box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); margin-right: 15px; }
         .logo-text { font-size: 24px; font-weight: bold; }
         .main-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
-        .player-wrapper { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid #1f1f2e; }
-        /* Video elements customized to prevent auto-pause glitches */
-        video { width: 100%; display: block; max-height: 500px; background-color: #000; }
-        .video-info { padding: 20px; background: #13131a; text-align: left; }
+        
+        /* Secure Player Framework */
+        .player-container { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid #1f1f2e; position: relative; padding-bottom: 56.25%; height: 0; }
+        .player-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background-color: #000; }
+        
+        .video-info { padding: 20px; background: #13131a; text-align: left; border-radius: 0 0 12px 12px; margin-top: -30px; margin-bottom: 30px; border: 1px solid #1f1f2e; border-top: none; }
         .video-info h2 { color: #007bff; margin-bottom: 5px; }
         .audio-tag { display: inline-block; background: #ffc107; color: #000; font-weight: bold; padding: 3px 8px; border-radius: 4px; font-size: 12px; margin-bottom: 10px; }
         .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; }
         .anime-card { background: #13131a; border-radius: 10px; padding: 20px; border: 1px solid #1f1f2e; text-align: left; }
         .anime-title { font-size: 18px; margin-bottom: 15px; font-weight: bold; }
         .btn-group { display: flex; gap: 10px; }
-        .lang-btn { flex: 1; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; }
+        .lang-btn { flex: 1; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; transition: 0.2s; }
         .btn-hindi { background-color: #28a745; }
         .btn-english { background-color: #17a2b8; }
     </style>
@@ -34,48 +36,46 @@
     </header>
 
     <div class="main-container">
-        <!-- Stable Video Player (Autoplay Hataya Gaya) -->
-        <div class="player-wrapper">
-            <video id="anime-player" controls preload="auto">
-                <source id="video-source" src="https://w3schools.com" type="video/mp4">
-                Your browser does not support video.
-            </video>
-            <div class="video-info">
-                <span id="player-audio" class="audio-tag">Status: Ready to Play</span>
-                <h2 id="player-title">One Piece - Standard Trailer</h2>
-                <p id="player-desc">Neeche se dub select karein aur phir video ke play button standard ▷ par click karein.</p>
-            </div>
+        <!-- Secure Cloud Video Player (Kabhi gray nahi hoga) -->
+        <div class="player-container">
+            <iframe id="secure-player" src="https://archive.org" allowfullscreen></iframe>
+        </div>
+        
+        <div class="video-info">
+            <span id="player-audio" class="audio-tag">Playing: One Piece Promo</span>
+            <h2 id="player-title">One Piece - Special Edition</h2>
+            <p id="player-desc">Neeche se apni pasand ka Anime audio select karein aur stream enjoy karein.</p>
         </div>
 
         <h3 style="text-align: left; margin-bottom: 15px; color: #8f8fbc;">Select Anime Language:</h3>
         
         <div class="anime-grid">
+            <!-- One Piece Card -->
             <div class="anime-card">
                 <div class="anime-title">🏴‍☠️ One Piece</div>
                 <div class="btn-group">
-                    <button class="lang-btn btn-hindi" onclick="loadAnime('One Piece (Hindi)', 'Hindi Dubbed Source Loaded', 'https://w3schools.com', 'Luffy ki exciting adventure ka video load ho chuka hai. Upar play button dabein.')">🗣️ Hindi Dub</button>
-                    <button class="lang-btn btn-english" onclick="loadAnime('One Piece (English)', 'English Dubbed Source Loaded', 'https://w3schools.com', 'English audio stream load ho chuki hai. Upar play button dabein.')">🇬🇧 English Dub</button>
+                    <button class="lang-btn btn-hindi" onclick="changeStream('One Piece (Hindi Dub)', 'Hindi Dubbed Source Active', 'https://archive.org', 'Luffy aur uski crew ki adventure ka exclusive clip cloud server se stream ho raha hai.')">🗣️ Hindi Dub</button>
+                    <button class="lang-btn btn-english" onclick="changeStream('One Piece (English Dub)', 'English Dubbed Source Active', 'https://archive.org', 'High-quality English audio stream successfully loaded from secure platform.')">🇬🇧 English Dub</button>
                 </div>
             </div>
+            
+            <!-- Naruto Card -->
             <div class="anime-card">
                 <div class="anime-title">🦊 Naruto Shippuden</div>
                 <div class="btn-group">
-                    <button class="lang-btn btn-hindi" onclick="loadAnime('Naruto (Hindi)', 'Hindi Dubbed Source Loaded', 'https://w3schools.com', 'Naruto ninja series ka video load ho chuka hai. Upar play button dabein.')">🗣️ Hindi Dub</button>
-                    <button class="lang-btn btn-english" onclick="loadAnime('Naruto (English)', 'English Dubbed Source Loaded', 'https://w3schools.com', 'English ninja battles clip load ho chuki hai. Upar play button dabein.')">🇬🇧 English Dub</button>
+                    <button class="lang-btn btn-hindi" onclick="changeStream('Naruto (Hindi Dub)', 'Hindi Dubbed Source Active', 'https://archive.org', 'Hidden Leaf Village ke ninja Naruto ki series ka clip load ho chuka hai.')">🗣️ Hindi Dub</button>
+                    <button class="lang-btn btn-english" onclick="changeStream('Naruto (English Dub)', 'English Dubbed Source Active', 'https://archive.org', 'Epic ninja battles clip streaming with full English controls.')">🇬🇧 English Dub</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function loadAnime(title, audioType, url, description) {
-            var video = document.getElementById('anime-player');
-            var source = document.getElementById('video-source');
+        function changeStream(title, audioType, embedUrl, description) {
+            var player = document.getElementById('secure-player');
             
-            // Safe manual reset strategy to prevent sudden auto-pauses
-            video.pause();
-            source.src = url;
-            video.load();
+            // System reset and source swap to clear out gray screen memory
+            player.src = embedUrl;
             
             document.getElementById('player-title').innerText = title;
             document.getElementById('player-audio').innerText = audioType;
