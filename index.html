@@ -89,19 +89,24 @@
             gap: 20px;
         }
 
-        /* Utility Copy Button */
-        .copy-link-btn {
-            background-color: #121e16;
-            color: #39e75f;
-            border: 1px solid #1a3a24;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 13px;
+        /* Shining Green GET APP Button inspired by modern web apps */
+        .get-app-btn {
+            background-color: #39e75f;
+            color: #000;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 14px;
             cursor: pointer;
             transition: 0.2s;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(57, 231, 95, 0.4);
         }
-        .copy-link-btn:hover { background-color: #1a3a24; }
+        .get-app-btn:hover {
+            background-color: #2bc44e;
+            transform: scale(1.03);
+        }
 
         .search-box input {
             width: 260px;
@@ -140,7 +145,7 @@
         }
 
         .btn-watch {
-            background-color: #39e75f;
+            background: linear-gradient(135deg, #ffc107, #ff9800);
             color: #000;
             font-weight: bold;
             border: none;
@@ -150,18 +155,7 @@
             font-size: 15px;
             transition: 0.2s;
         }
-        .btn-watch:hover { background-color: #2bc44e; transform: scale(1.02); }
-
-        .btn-arrivals {
-            background-color: rgba(255,255,255,0.05);
-            color: #aaa;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        .btn-watch:hover { transform: scale(1.02); }
 
         /* Content Rows Sections */
         .section-heading {
@@ -173,6 +167,7 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            color: #39e75f;
         }
 
         .grid-row {
@@ -206,7 +201,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 42px;
+            font-size: 46px;
         }
 
         .card-details {
@@ -248,9 +243,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            background-color: rgba(0,0,0,0.95);
             z-index: 100;
-            display: none; /* File injection trigger par open hoga */
+            display: none; 
             align-items: center;
             justify-content: center;
             padding: 40px;
@@ -258,7 +253,7 @@
 
         .vlc-window-box {
             background-color: #0b0c10;
-            border: 3px solid #ffaa00; /* VLC Iconic Orange Border */
+            border: 3px solid #ffaa00; /* VLC cone theme orange border */
             width: 100%;
             max-width: 900px;
             border-radius: 12px;
@@ -301,7 +296,7 @@
 </head>
 <body>
 
-    <!-- Left Icon Sidebar -->
+    <!-- Left Sidebar Menu -->
     <div class="sidebar">
         <div class="sidebar-logo">🎬</div>
         <div class="sidebar-icon active">🏠</div>
@@ -313,7 +308,7 @@
         <div class="sidebar-icon">⬇️</div>
     </div>
 
-    <!-- Main Section Box -->
+    <!-- Main Dashboard Section Box -->
     <div class="main-content">
         
         <!-- Header -->
@@ -323,22 +318,25 @@
                 <h2>Stream Beyond Limits</h2>
             </div>
             <div class="top-right-nav">
-                <button class="copy-link-btn" onclick="copyProjectURL()">📋 Copy App Link</button>
+                <!-- Premium GET APP button added at the top -->
+                <button class="get-app-btn" onclick="triggerDownloadAlert()">⚡ GET APP</button>
                 <div class="search-box">
                     <input type="text" placeholder="Search movies or anime...">
                 </div>
             </div>
         </header>
 
-        <!-- Big Banner -->
+        <!-- Big Top Banner -->
         <div class="featured-banner">
             <h1 class="banner-title" id="banner-main-text">One Piece: Wano Arc Conclusion</h1>
             <div class="banner-buttons">
                 <button class="btn-watch" onclick="triggerLocalVlc('One Piece (Featured Premium Arc)')">▶ WATCH NOW</button>
-                <button class="btn-arrivals">NEW ARRIVALS THIS WEEK</button>
             </div>
         </div>
 
         <!-- Hidden Core File Input Bridge Component -->
         <input type="file" id="hidden-file-injector" accept="video/mp4, video/*">
 
+        <!-- Section 1: One Piece & Naruto Series Row Layout -->
+        <div class="section-heading">🏴‍☠️ Premium Anime Selection</div>
+        <div class="grid-row">
