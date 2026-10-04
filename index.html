@@ -3,42 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>stream app - Custom Layout</title>
+    <title>MovieBox Pro - Ultimate Stream</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
         body {
-            background-color: #0b0b0f;
+            background-color: #06060a;
             color: #fff;
-            padding: 25px;
+            padding: 20px;
         }
 
-        /* Paint 3D Sketch Outer Border Frame */
-        .container-border {
-            border: 4px solid #ffffff;
-            border-radius: 12px;
-            padding: 30px;
+        /* MovieBox Style Outer Container Main Frame */
+        .moviebox-container {
+            border: 3px solid #ff0055; /* MovieBox Magenta-Pink Theme Trim Border */
+            border-radius: 14px;
+            padding: 25px;
             max-width: 1200px;
             margin: 0 auto;
-            background-color: #111116;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            background-color: #0f0f16;
+            box-shadow: 0 15px 40px rgba(255, 0, 85, 0.15);
         }
 
-        /* Top Bar: Copy Button Sub-Header */
+        /* Top Utility Bar for Copy Button */
         .top-utility-bar {
             display: flex;
             justify-content: flex-end;
             margin-bottom: 15px;
         }
 
-        /* Top Copy Button */
         .top-copy-btn {
-            background-color: #007bff;
+            background: linear-gradient(135deg, #ff0055, #ff5500);
             color: #fff;
             border: none;
             padding: 8px 18px;
@@ -47,12 +46,11 @@
             cursor: pointer;
             transition: 0.2s;
             font-size: 14px;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
         }
 
         .top-copy-btn:hover {
-            background-color: #0056b3;
             transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(255, 0, 85, 0.4);
         }
 
         /* Header Layout: Logo + App Name Left Par, Search Right Par */
@@ -60,7 +58,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid #1f1f2e;
         }
@@ -71,52 +69,64 @@
             gap: 15px;
         }
 
-        /* Blue Circle Logo */
-        .blue-circle {
-            width: 35px;
-            height: 35px;
-            background-color: #007bff;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #007bff;
+        /* MovieBox Inspired Gradient Logo Icon */
+        .moviebox-logo-circle {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff0055, #ff5500);
+            border-radius: 12px; /* Smooth rounded square like modern app icons */
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
         }
 
         .app-title {
             font-size: 28px;
-            font-weight: bold;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Rectangular Search Box */
+        /* Rectangular Search Box from Paint 3D Layout */
         .search-container input {
-            width: 250px;
+            width: 260px;
             padding: 10px 15px;
-            border: 2px solid #ffffff;
-            border-radius: 6px;
-            background-color: #1a1a24;
+            border: 2px solid #ff0055;
+            border-radius: 8px;
+            background-color: #161622;
             color: #fff;
             font-size: 16px;
             outline: none;
+            transition: 0.3s;
         }
 
-        /* VLC Orange Trim Video Player Interface Frame (Fill space correctly) */
-        .vlc-media-container {
+        .search-container input:focus {
+            box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+        }
+
+        /* MovieBox Cinema Dynamic Overlay Video Window */
+        .cinema-player-wrapper {
             background: #000;
-            border: 3px solid #ffaa00;
-            border-radius: 10px;
+            border: 2px solid #ff0055;
+            border-radius: 12px;
             overflow: hidden;
             margin-bottom: 35px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.9);
-            display: none; /* Active via card click */
+            display: none; /* Triggers active smoothly upon selecting card data assets */
         }
 
-        .player-frame-wrapper {
+        .player-viewport {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio to remove black bars */
+            padding-bottom: 56.25%; /* 16:9 Cinema Aspect Ratio Frame */
             height: 0;
-            overflow: hidden;
             background-color: #000;
         }
 
-        .player-frame-wrapper iframe {
+        .player-viewport iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -125,28 +135,31 @@
             border: 0;
         }
 
-        /* VLC Control Strip Panel */
-        .vlc-control-strip {
-            background: #1e1e26;
+        /* MovieBox Style Player Control Info Track Strip */
+        .cinema-info-strip {
+            background: #13131f;
             padding: 15px 25px;
             display: flex;
             align-items: center;
-            gap: 20px;
-            border-top: 1px solid #2d2d3d;
+            gap: 15px;
+            border-top: 1px solid #1f1f30;
         }
 
-        .vlc-cone { font-size: 24px; }
-        .track-details { text-align: left; flex: 1; }
-        .track-details h3 { color: #ffaa00; font-size: 18px; margin-bottom: 2px; }
-        .track-details p { color: #888; font-size: 12px; }
+        .cinema-icon { font-size: 24px; }
+        .track-meta { text-align: left; flex: 1; }
+        .track-meta h3 { color: #ff0055; font-size: 18px; margin-bottom: 2px; font-weight: bold; }
+        .track-meta p { color: #999; font-size: 12px; }
 
         /* Headings Font Style */
         .section-title {
-            font-size: 26px;
+            font-size: 24px;
             text-align: left;
             margin-bottom: 20px;
             margin-top: 25px;
-            font-weight: normal;
+            font-weight: 700;
+            text-transform: capitalize;
+            color: #ff0055;
+            letter-spacing: 0.5px;
         }
 
         /* 4-Column Linear Dashboard Grid Items Box */
@@ -158,27 +171,28 @@
         }
 
         .movie-card {
-            border: 2px solid #ffffff;
-            border-radius: 8px;
-            background-color: #1a1a24;
-            height: 120px;
+            border: 2px solid #1f1f30;
+            border-radius: 10px;
+            background-color: #13131f;
+            height: 130px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: 0.25s ease;
-            padding: 10px;
+            transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 15px;
         }
 
         .movie-card:hover {
-            border-color: #ffaa00;
-            background-color: #222230;
-            transform: scale(1.03);
+            border-color: #ff0055;
+            background-color: #1a1a2b;
+            transform: translateY(-4px);
+            box-shadow: 0 5px 15px rgba(255, 0, 85, 0.2);
         }
 
-        .card-icon { font-size: 34px; margin-bottom: 8px; }
-        .card-name { font-size: 14px; font-weight: 500; color: #e5e5e9; text-align: center; }
+        .card-icon { font-size: 36px; margin-bottom: 8px; }
+        .card-name { font-size: 14px; font-weight: 600; color: #e5e5e9; text-align: center; }
 
         @media (max-width: 768px) {
             .cards-grid { grid-template-columns: repeat(2, 1fr); }
@@ -189,35 +203,35 @@
 </head>
 <body>
 
-    <div class="container-border">
+    <div class="moviebox-container">
         
         <!-- Top Utility Bar for Copy Button -->
         <div class="top-utility-bar">
-            <button class="top-copy-btn" onclick="copyWebsiteURL()">📋 Copy Link</button>
+            <button class="top-copy-btn" onclick="copyMovieBoxURL()">📋 Copy Link</button>
         </div>
 
         <!-- Header: Logo, Name & Search -->
         <header>
             <div class="logo-section">
-                <div class="blue-circle"></div>
-                <div class="app-title">stream app</div>
+                <div class="moviebox-logo-circle">M</div>
+                <div class="app-title">MovieBox App</div>
             </div>
             <div class="search-container">
-                <input type="text" placeholder="search">
+                <input type="text" placeholder="search...">
             </div>
         </header>
 
-        <!-- VLC Real Live Unblockable Cloud Video Player Box -->
-        <div class="vlc-media-container" id="vlc-player-panel">
-            <div class="player-frame-wrapper">
-                <!-- Safe streaming engine embed that bypasses network blocks -->
-                <iframe id="vlc-iframe-stream" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <!-- MovieBox Real Streaming Engine Terminal Frame View Box Panel -->
+        <div class="cinema-player-wrapper" id="cinema-panel-view">
+            <div class="player-viewport">
+                <!-- High efficiency secure unblockable cloud data stream bridge network iframe -->
+                <iframe id="cinema-iframe-stream" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
-            <div class="vlc-control-strip">
-                <div class="vlc-cone">🍊</div>
-                <div class="track-details">
-                    <h3 id="vlc-title-text">VLC Player Ready</h3>
-                    <p id="vlc-status-text">Official stream track loaded successfully.</p>
+            <div class="cinema-info-strip">
+                <div class="cinema-icon">🎬</div>
+                <div class="track-meta">
+                    <h3 id="cinema-title-node">MovieBox Engine Active</h3>
+                    <p id="cinema-status-node">High-speed media server pipeline asset stream active loop metrics.</p>
                 </div>
             </div>
         </div>
@@ -225,19 +239,19 @@
         <!-- Layout Section 1: Animations Movie -->
         <div class="section-title">animations movie</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="playVlcStream('Big Buck Bunny Short', 'https://vimeo.com', 'Classic open source bunny comedy running over stable streaming cloud network.')">
+            <div class="movie-card" onclick="loadMovieBoxStream('Big Buck Bunny (Animation Movie)', 'https://vimeo.com', 'Full legal cloud animated feature short clip playing over safe CDN pipeline.')">
                 <div class="card-icon">🐰</div>
                 <div class="card-name">Bunny Story</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('Sintel Animation Movie', 'https://vimeo.com', 'Blender foundation open source fantasy trailer playing smoothly.')">
+            <div class="movie-card" onclick="loadMovieBoxStream('Sintel (Fantasy Animation Movie)', 'https://vimeo.com', 'Blender Foundation open source premium graphic movie preview active.')">
                 <div class="card-icon">🐉</div>
                 <div class="card-name">Sintel Trailer</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('Tears of Steel Sci-Fi', 'https://vimeo.com', 'Open source VFX project short film simulation active.')">
+            <div class="movie-card" onclick="loadMovieBoxStream('Tears of Steel (Sci-Fi Animation)', 'https://vimeo.com', 'Dystopian visual effects masterclass track stream active on node 1.')">
                 <div class="card-icon">🤖</div>
                 <div class="card-name">Tears of Steel</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('Sitcom Open Stream', 'https://vimeo.com', 'Standard graphic test asset streaming smoothly over cloud framework.')">
+            <div class="movie-card" onclick="loadMovieBoxStream('Sitcom Open Animation Asset', 'https://vimeo.com', 'Standard network graphic data asset stream processing smoothly loop.')">
                 <div class="card-icon">🐑</div>
                 <div class="card-name">Cosmos Short</div>
             </div>
@@ -246,27 +260,9 @@
         <!-- Layout Section 2: Anime -->
         <div class="section-title">anime</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="playVlcStream('One Piece (Hindi Concept Video)', 'https://vimeo.com', 'Monkey D. Luffy Straw Hat crew animation video track active.')">
+            <div class="movie-card" onclick="loadMovieBoxStream('One Piece (Wano Arc Concept Stream)', 'https://vimeo.com', 'Straw Hat Pirates Wano arc animation conceptual streaming framework active.')">
                 <div class="card-icon">🏴‍☠️</div>
                 <div class="card-name">One Piece (Hindi)</div>
             </div>
-            <div class="movie-card" onclick="playVlcStream('One Piece (English Concept Video)', 'https://vimeo.com', 'Official English audio conceptual tracking source activated safely.')">
+            <div class="movie-card" onclick="loadMovieBoxStream('One Piece (English Dubbed Preview)', 'https://vimeo.com', 'Official English audio data stream tracks synchronizing directly with video nodes.')">
                 <div class="card-icon">👑</div>
-                <div class="card-name">One Piece (English)</div>
-            </div>
-            <div class="movie-card" onclick="playVlcStream('Naruto Shippuden Promo', 'https://vimeo.com', 'Hidden Leaf Village ninja combat clip simulation active on player.')">
-                <div class="card-icon">🦊</div>
-                <div class="card-name">Naruto (Hindi)</div>
-            </div>
-            <div class="movie-card" onclick="playVlcStream('Death Note Thriller Intro', 'https://vimeo.com', 'Psychological thriller detective battle clip loaded over framework player.')">
-                <div class="card-icon">📓</div>
-                <div class="card-name">Death Note (Hindi)</div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        // Unblockable Vimeo Cloud Network Streaming Bridge Engine
-        function playVlcStream(mediaTitle, streamUrl, statusLog) {
-            var playerPanel = document.getElementById('vlc-media-container');
