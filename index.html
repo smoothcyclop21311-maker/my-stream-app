@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeHub - Streaming Live</title>
+    <title>AnimeHub - Local Music Player</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #0d0d13; color: #fff; text-align: center; }
@@ -12,20 +12,27 @@
         .logo-text { font-size: 24px; font-weight: bold; }
         .main-container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
         
-        /* Secure Cloud Stream Container */
-        .player-wrapper { background: #000; border-radius: 12px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid #1f1f2e; position: relative; padding-bottom: 56.25%; height: 0; }
-        .player-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background-color: #000; pointer-events: none; }
+        /* 100% Safe Offline Display Box */
+        .display-wrapper { background: linear-gradient(135deg, #1e1e2f, #0f0f1a); border-radius: 12px; padding: 50px 20px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #007bff; text-align: center; min-height: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .anime-visual { font-size: 70px; margin-bottom: 15px; }
         
-        .video-info { padding: 20px; background: #13131a; text-align: left; border-radius: 0 0 12px 12px; margin-top: -30px; margin-bottom: 30px; border: 1px solid #1f1f2e; border-top: none; }
+        /* Secure Audio Framework controls layout */
+        audio { width: 100%; max-width: 500px; margin-top: 20px; outline: none; }
+        
+        /* Upload Section Button */
+        .upload-box { background: #13131a; padding: 20px; border-radius: 10px; border: 1px dashed #444; margin-bottom: 25px; }
+        .file-label { background: #28a745; color: white; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; display: inline-block; }
+        #audio-upload { display: none; }
+
+        .video-info { padding: 20px; background: #13131a; text-align: left; border-radius: 12px; border: 1px solid #1f1f2e; margin-bottom: 30px; }
         .video-info h2 { color: #007bff; margin-bottom: 5px; }
         .audio-tag { display: inline-block; background: #ffc107; color: #000; font-weight: bold; padding: 3px 8px; border-radius: 4px; font-size: 12px; margin-bottom: 10px; }
-        .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; }
-        .anime-card { background: #13131a; border-radius: 10px; padding: 20px; border: 1px solid #1f1f2e; text-align: left; }
-        .anime-title { font-size: 18px; margin-bottom: 15px; font-weight: bold; }
-        .btn-group { display: flex; gap: 10px; }
-        .lang-btn { flex: 1; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; transition: 0.2s; }
-        .btn-hindi { background-color: #28a745; }
-        .btn-english { background-color: #17a2b8; }
+        
+        .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .anime-card { background: #13131a; border-radius: 10px; padding: 20px; border: 1px solid #1f1f2e; text-align: left; cursor: pointer; transition: 0.2s; }
+        .anime-card:hover { border-color: #007bff; }
+        .anime-title { font-size: 18px; font-weight: bold; }
+        .anime-status { font-size: 13px; color: #888; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -36,54 +43,69 @@
     </header>
 
     <div class="main-container">
-        <!-- Secure Animated Cloud Engine (100% Unblockable Streaming) -->
-        <div class="player-wrapper">
-            <iframe id="secure-engine" src="https://giphy.com" width="100%" height="100%" allowfullscreen></iframe>
+        
+        <!-- Offline Storage Upload -->
+        <div class="upload-box">
+            <h3 style="margin-bottom: 12px;">Step 1: Apne PC se koi bhi Song (Audio) select karein:</h3>
+            <label for="audio-upload" class="file-label">🎵 Choose Audio/Song File</label>
+            <input type="file" id="audio-upload" accept="audio/*">
+        </div>
+
+        <!-- Stable Custom Visual Display Player (Kabhi error nahi dega) -->
+        <div class="display-wrapper">
+            <div class="anime-visual" id="player-emoji">🏴‍☠️</div>
+            <h2 style="font-size: 26px;" id="player-heading">One Piece Theme Mode</h2>
+            <audio id="main-audio-control" controls></audio>
         </div>
         
         <div class="video-info">
-            <span id="player-audio" class="audio-tag">Language: Hindi Dubbed Active</span>
-            <h2 id="player-title">One Piece - Gear 5 Edition</h2>
-            <p id="player-desc">Monkey D. Luffy ka official fully loaded Hindi dubbed server 1 cloud preview successfully load ho chuka hai!</p>
+            <span id="player-audio" class="audio-tag">Offline Track System</span>
+            <h2 id="player-title">One Piece (Hindi Mode)</h2>
+            <p id="player-desc">Ooper green button se koi bhi song select karein, aur niche se anime background change karein!</p>
         </div>
 
-        <h3 style="text-align: left; margin-bottom: 15px; color: #8f8fbc;">Select Anime Audio Source:</h3>
+        <h3 style="text-align: left; margin-bottom: 15px; color: #8f8fbc;">Step 2: Select Anime Character Layout:</h3>
         
         <div class="anime-grid">
-            <!-- One Piece Premium Secure Card -->
-            <div class="anime-card">
-                <div class="anime-title">🏴‍☠️ One Piece (Season 1)</div>
-                <div class="btn-group">
-                    <button class="lang-btn btn-hindi" onclick="changeCloudStream('One Piece (Official Hindi Dubbed)', 'Language: Hindi Dubbed Active', 'https://giphy.com', 'Luffy ki exciting adventure ka high speed stream track backend data link se completely chal raha hai.')">🗣️ Hindi Dub</button>
-                    <button class="lang-btn btn-english" onclick="changeStreamRedirect()">🇬🇧 English Dub</button>
-                </div>
+            <!-- One Piece Card -->
+            <div class="anime-card" onclick="changeMode('One Piece (Hindi/English Mode)', '🏴‍☠️', 'Luffy track design active. Apne load kiye huye song ko play karein!')">
+                <div class="anime-title">🏴‍☠️ One Piece (Luffy)</div>
+                <div class="anime-status">Click to switch look</div>
             </div>
             
-            <!-- Naruto Premium Secure Card -->
-            <div class="anime-card">
+            <!-- Naruto Card -->
+            <div class="anime-card" onclick="changeMode('Naruto Shippuden Mode', '🦊', 'Naruto ninja track design active. Audio control se play button dabayein!')">
                 <div class="anime-title">🦊 Naruto Shippuden</div>
-                <div class="btn-group">
-                    <button class="lang-btn btn-hindi" onclick="changeCloudStream('Naruto Shippuden (Hindi Dub)', 'Language: Hindi Dubbed Active', 'https://giphy.com', 'Hidden Leaf Village ke ninja Naruto ka special unblockable media server link active ho chuka hai.')">🗣️ Hindi Dub</button>
-                    <button class="lang-btn btn-english" onclick="changeCloudStream('Naruto Shippuden (English Dub)', 'Language: English Dubbed Active', 'https://giphy.com', 'Epic anime battles with high quality English voiceover stream layout running completely stable.')">🇬🇧 English Dub</button>
-                </div>
+                <div class="anime-status">Click to switch look</div>
             </div>
         </div>
     </div>
 
     <script>
-        function changeCloudStream(title, audioType, embedUrl, description) {
-            document.getElementById('secure-engine').src = embedUrl;
-            document.getElementById('player-title').innerText = title;
-            document.getElementById('player-audio').innerText = audioType;
-            document.getElementById('player-desc').innerText = description;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        var globalAudioURL = null;
 
-        // English Dub link par click karne par real full action stream website par bhej dega!
-        function changeStreamRedirect() {
-            if(confirm("English Dub ke poore premium episodes dekhne ke liye official server tab open karein?")) {
-                window.open("https://crunchyroll.com", "_blank");
+        // Local storage file reader bridge
+        document.getElementById('audio-upload').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var audioControl = document.getElementById('main-audio-control');
+                globalAudioURL = URL.createObjectURL(file);
+                
+                audioControl.src = globalAudioURL;
+                document.getElementById('player-desc').innerText = "Song '" + file.name + "' kamyabi se load ho gaya hai. Audio player ke play icon par click karein!";
+                audioControl.load();
+                audioControl.play().catch(function(e) { console.log("Play gesture needed"); });
             }
+        });
+
+        function changeMode(title, emoji, description) {
+            document.getElementById('player-title').innerText = title;
+            document.getElementById('player-heading').innerText = title;
+            document.getElementById('player-emoji').innerText = emoji;
+            document.getElementById('player-desc').innerText = description;
+            
+            // Agar audio pehle se load hai toh use chalaye rakhega
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
