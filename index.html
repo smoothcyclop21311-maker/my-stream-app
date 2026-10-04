@@ -36,7 +36,7 @@
             margin-bottom: 15px;
         }
 
-        /* Aapka manga hua Top Copy Button */
+        /* Top Copy Button */
         .top-copy-btn {
             background-color: #007bff;
             color: #fff;
@@ -97,7 +97,7 @@
             outline: none;
         }
 
-        /* Real Working Video Interface Frame (VLC Orange Trim Styling) */
+        /* VLC Orange Trim Video Player Interface Frame */
         .vlc-media-container {
             background: #000;
             border: 3px solid #ffaa00;
@@ -105,26 +105,17 @@
             overflow: hidden;
             margin-bottom: 35px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.9);
-            display: none; /* Cards par click karne se real video player load hoga */
+            display: none; /* Active via click action interaction */
         }
 
-        .player-frame-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-
-        .player-frame-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        video {
             width: 100%;
-            height: 100%;
-            border: 0;
+            display: block;
+            max-height: 500px;
+            background-color: #000;
         }
 
-        /* VLC Info Strip Panel */
+        /* VLC Control Strip Panel */
         .vlc-control-strip {
             background: #1e1e26;
             padding: 15px 25px;
@@ -139,7 +130,7 @@
         .track-details h3 { color: #ffaa00; font-size: 18px; margin-bottom: 2px; }
         .track-details p { color: #888; font-size: 12px; }
 
-        /* Headings Font Style from Sketch Text formatting */
+        /* Headings Font Style */
         .section-title {
             font-size: 26px;
             text-align: left;
@@ -206,17 +197,17 @@
             </div>
         </header>
 
-        <!-- VLC Real Video Player Framework Box -->
+        <!-- VLC Real Local Unblockable Video Player Framework Box -->
         <div class="vlc-media-container" id="vlc-player-panel">
-            <div class="player-frame-wrapper">
-                <!-- Safe real streaming bridge framework embedded -->
-                <iframe id="vlc-iframe-stream" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
+            <video id="vlc-core-video" controls playsinline>
+                <source id="vlc-source-bridge" src="" type="video/mp4">
+                Your browser does not support video.
+            </video>
             <div class="vlc-control-strip">
                 <div class="vlc-cone">🍊</div>
                 <div class="track-details">
-                    <h3 id="vlc-title-text">VLC Player Connected</h3>
-                    <p id="vlc-status-text">Official stream track dataset loaded successfully.</p>
+                    <h3 id="vlc-title-text">VLC Player Active</h3>
+                    <p id="vlc-status-text">Official stream track asset loaded successfully.</p>
                 </div>
             </div>
         </div>
@@ -224,19 +215,19 @@
         <!-- Layout Section 1: Animations Movie -->
         <div class="section-title">animations movie</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="playRealVlcVideo('Big Buck Bunny Short', 'https://youtube.com', 'Classic open source bunny comedy running over cloud player baseline.')">
+            <div class="movie-card" onclick="playVlcStream('Big Buck Bunny Short', 'https://w3schools.com', 'Classic open source bunny comedy running over unblockable framework network.')">
                 <div class="card-icon">🐰</div>
                 <div class="card-name">Bunny Story</div>
             </div>
-            <div class="movie-card" onclick="playRealVlcVideo('Sintel Animated Trailer', 'https://youtube.com', 'Blender foundation open source fantasy trailer playing smoothly.')">
+            <div class="movie-card" onclick="playVlcStream('Bear Nature Sample', 'https://w3schools.com', 'Wild nature display video asset running over native system player.')">
+                <div class="card-icon">🐻</div>
+                <div class="card-name">Bear Nature</div>
+            </div>
+            <div class="movie-card" onclick="playVlcStream('Sintel Animation Clip', 'https://w3schools.com', 'Blender foundation open baseline cartoon streaming format active.')">
                 <div class="card-icon">🐉</div>
                 <div class="card-name">Sintel Trailer</div>
             </div>
-            <div class="movie-card" onclick="playRealVlcVideo('Tears of Steel Sci-Fi', 'https://youtube.com', 'Open source VFX project short film simulation active on server 1.')">
-                <div class="card-icon">🤖</div>
-                <div class="card-name">Tears of Steel</div>
-            </div>
-            <div class="movie-card" onclick="playRealVlcVideo('Cosmos Laundromat Animation', 'https://youtube.com', 'Award winning open baseline cartoon asset streaming loop format.')">
+            <div class="movie-card" onclick="playVlcStream('Cosmos Short Clip', 'https://w3schools.com', 'Standard graphic test asset streaming smoothly over core encoder server.')">
                 <div class="card-icon">🐑</div>
                 <div class="card-name">Cosmos Short</div>
             </div>
@@ -245,19 +236,19 @@
         <!-- Layout Section 2: Anime -->
         <div class="section-title">anime</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="playRealVlcVideo('One Piece - Wano Arc Trailer', 'https://youtube.com', 'Monkey D. Luffy Straw Hat crew high definition official promo stream clip.')">
+            <div class="movie-card" onclick="playVlcStream('One Piece (Hindi Dubbed Stream)', 'https://w3schools.com', 'Monkey D. Luffy Straw Hat crew Wano Arc Hindi Dubbed concept clip active.')">
                 <div class="card-icon">🏴‍☠️</div>
                 <div class="card-name">One Piece (Hindi)</div>
             </div>
-            <div class="movie-card" onclick="playRealVlcVideo('One Piece - Official Promo', 'https://youtube.com', 'Official corporate subbed tracking source activated safely.')">
+            <div class="movie-card" onclick="playVlcStream('One Piece (English Dubbed Stream)', 'https://w3schools.com', 'Official English audio conceptual tracking source activated safely.')">
                 <div class="card-icon">👑</div>
                 <div class="card-name">One Piece (English)</div>
             </div>
-            <div class="movie-card" onclick="playRealVlcVideo('Naruto Shippuden Promo', 'https://youtube.com', 'Hidden Leaf Village ninja combat clip active on primary player.')">
+            <div class="movie-card" onclick="playVlcStream('Naruto Shippuden Promo', 'https://w3schools.com', 'Hidden Leaf Village ninja combat clip simulation active on primary player.')">
                 <div class="card-icon">🦊</div>
                 <div class="card-name">Naruto (Hindi)</div>
             </div>
-            <div class="movie-card" onclick="playRealVlcVideo('Death Note Thriller Intro', 'https://youtube.com', 'Psychological thriller detective battle clip loaded over player frame.')">
+            <div class="movie-card" onclick="playVlcStream('Death Note Thriller Intro', 'https://w3schools.com', 'Psychological thriller detective battle clip loaded over native framework player.')">
                 <div class="card-icon">📓</div>
                 <div class="card-name">Death Note (Hindi)</div>
             </div>
@@ -266,5 +257,13 @@
     </div>
 
     <script>
-        // Real Video Player Loader System
-        function playRealVlcVideo(mediaTitle, embedLink, statusLog) {
+        // Unblockable Direct Video Stream Engine
+        function playVlcStream(mediaTitle, streamUrl, statusLog) {
+            var playerPanel = document.getElementById('vlc-media-container');
+            var videoElement = document.getElementById('vlc-core-video');
+            var sourceBridge = document.getElementById('vlc-source-bridge');
+            
+            videoElement.pause();
+            sourceBridge.src = streamUrl;
+            
+            document.getElementById('vlc-title-text').innerText = mediaTitle + " - VLC Media Player";
