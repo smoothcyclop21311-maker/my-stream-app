@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieBox Pro - Ultimate Stream</title>
+    <title>MovieBox - One Piece Stream</title>
     <style>
         * {
             margin: 0;
@@ -18,18 +18,18 @@
             padding: 20px;
         }
 
-        /* MovieBox Style Outer Container Main Frame */
+        /* MovieBox Main White Border Frame */
         .moviebox-container {
-            border: 3px solid #ff0055; /* MovieBox Magenta-Pink Theme Trim Border */
+            border: 4px solid #ffffff;
             border-radius: 14px;
             padding: 25px;
             max-width: 1200px;
             margin: 0 auto;
             background-color: #0f0f16;
-            box-shadow: 0 15px 40px rgba(255, 0, 85, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
         }
 
-        /* Top Utility Bar for Copy Button */
+        /* Top Copy Button */
         .top-utility-bar {
             display: flex;
             justify-content: flex-end;
@@ -48,17 +48,12 @@
             font-size: 14px;
         }
 
-        .top-copy-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(255, 0, 85, 0.4);
-        }
-
-        /* Header Layout: Logo + App Name Left Par, Search Right Par */
+        /* Header Layout: Logo + App Name Left, Search Right */
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding-bottom: 20px;
             border-bottom: 2px solid #1f1f2e;
         }
@@ -69,12 +64,11 @@
             gap: 15px;
         }
 
-        /* MovieBox Inspired Gradient Logo Icon */
         .moviebox-logo-circle {
             width: 40px;
             height: 40px;
             background: linear-gradient(135deg, #ff0055, #ff5500);
-            border-radius: 12px; /* Smooth rounded square like modern app icons */
+            border-radius: 12px;
             box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
             display: flex;
             align-items: center;
@@ -86,42 +80,33 @@
         .app-title {
             font-size: 28px;
             font-weight: 800;
-            background: linear-gradient(135deg, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        /* Rectangular Search Box from Paint 3D Layout */
+        /* Search Bar */
         .search-container input {
-            width: 260px;
+            width: 250px;
             padding: 10px 15px;
-            border: 2px solid #ff0055;
+            border: 2px solid #ffffff;
             border-radius: 8px;
             background-color: #161622;
             color: #fff;
             font-size: 16px;
             outline: none;
-            transition: 0.3s;
         }
 
-        .search-container input:focus {
-            box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
-        }
-
-        /* MovieBox Cinema Dynamic Overlay Video Window */
+        /* Auto-Playing Video Container (MovieBox Style) */
         .cinema-player-wrapper {
             background: #000;
-            border: 2px solid #ff0055;
+            border: 3px solid #ff0055;
             border-radius: 12px;
             overflow: hidden;
             margin-bottom: 35px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.9);
-            display: none; /* Triggers active smoothly upon selecting card data assets */
         }
 
         .player-viewport {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Cinema Aspect Ratio Frame */
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
             background-color: #000;
         }
@@ -135,7 +120,6 @@
             border: 0;
         }
 
-        /* MovieBox Style Player Control Info Track Strip */
         .cinema-info-strip {
             background: #13131f;
             padding: 15px 25px;
@@ -145,24 +129,20 @@
             border-top: 1px solid #1f1f30;
         }
 
-        .cinema-icon { font-size: 24px; }
-        .track-meta { text-align: left; flex: 1; }
         .track-meta h3 { color: #ff0055; font-size: 18px; margin-bottom: 2px; font-weight: bold; }
         .track-meta p { color: #999; font-size: 12px; }
 
-        /* Headings Font Style */
+        /* Section Headings */
         .section-title {
             font-size: 24px;
             text-align: left;
             margin-bottom: 20px;
             margin-top: 25px;
             font-weight: 700;
-            text-transform: capitalize;
-            color: #ff0055;
-            letter-spacing: 0.5px;
+            color: #ffffff;
         }
 
-        /* 4-Column Linear Dashboard Grid Items Box */
+        /* Episodes Grid Layout (Boxes right below the video player) */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -171,27 +151,26 @@
         }
 
         .movie-card {
-            border: 2px solid #1f1f30;
+            border: 2px solid #ffffff;
             border-radius: 10px;
             background-color: #13131f;
-            height: 130px;
+            height: 110px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.23s ease;
             padding: 15px;
         }
 
         .movie-card:hover {
             border-color: #ff0055;
             background-color: #1a1a2b;
-            transform: translateY(-4px);
-            box-shadow: 0 5px 15px rgba(255, 0, 85, 0.2);
+            transform: translateY(-3px);
         }
 
-        .card-icon { font-size: 36px; margin-bottom: 8px; }
+        .card-icon { font-size: 32px; margin-bottom: 5px; }
         .card-name { font-size: 14px; font-weight: 600; color: #e5e5e9; text-align: center; }
 
         @media (max-width: 768px) {
@@ -205,64 +184,80 @@
 
     <div class="moviebox-container">
         
-        <!-- Top Utility Bar for Copy Button -->
+        <!-- Top Copy Button -->
         <div class="top-utility-bar">
             <button class="top-copy-btn" onclick="copyMovieBoxURL()">📋 Copy Link</button>
         </div>
 
-        <!-- Header: Logo, Name & Search -->
+        <!-- Header Layout -->
         <header>
             <div class="logo-section">
                 <div class="moviebox-logo-circle">M</div>
-                <div class="app-title">MovieBox App</div>
+                <div class="app-title">stream app</div>
             </div>
             <div class="search-container">
-                <input type="text" placeholder="search...">
+                <input type="text" placeholder="search">
             </div>
         </header>
 
-        <!-- MovieBox Real Streaming Engine Terminal Frame View Box Panel -->
-        <div class="cinema-player-wrapper" id="cinema-panel-view">
+        <!-- Auto-playing MovieBox Stream Player (App open hote hi chale gaa) -->
+        <div class="cinema-player-wrapper">
             <div class="player-viewport">
-                <!-- High efficiency secure unblockable cloud data stream bridge network iframe -->
-                <iframe id="cinema-iframe-stream" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <!-- Is link mein autoplay=1 set hai, page open hote hi background video start ho jayegi -->
+                <iframe id="cinema-iframe-stream" src="https://vimeo.com" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
             <div class="cinema-info-strip">
                 <div class="cinema-icon">🎬</div>
                 <div class="track-meta">
-                    <h3 id="cinema-title-node">MovieBox Engine Active</h3>
-                    <p id="cinema-status-node">High-speed media server pipeline asset stream active loop metrics.</p>
+                    <h3 id="cinema-title-node">One Piece - Episode 01 (English Dubbed)</h3>
+                    <p id="cinema-status-node">App opened successfully. Streaming automatic pilot load track.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Layout Section 1: Animations Movie -->
-        <div class="section-title">animations movie</div>
+        <!-- Episodes List below the video player -->
+        <div class="section-title">animations movie / anime episodes</div>
         <div class="cards-grid">
-            <div class="movie-card" onclick="loadMovieBoxStream('Big Buck Bunny (Animation Movie)', 'https://vimeo.com', 'Full legal cloud animated feature short clip playing over safe CDN pipeline.')">
-                <div class="card-icon">🐰</div>
-                <div class="card-name">Bunny Story</div>
+            <div class="movie-card" onclick="loadEpisode('One Piece - Episode 01 (English)', 'https://vimeo.com', 'Episode 1: Romance Dawn - Luffy\'s journey begins!')">
+                <div class="card-icon">🏴‍☠️</div>
+                <div class="card-name">One Piece Ep 1</div>
             </div>
-            <div class="movie-card" onclick="loadMovieBoxStream('Sintel (Fantasy Animation Movie)', 'https://vimeo.com', 'Blender Foundation open source premium graphic movie preview active.')">
-                <div class="card-icon">🐉</div>
-                <div class="card-name">Sintel Trailer</div>
+            <div class="movie-card" onclick="loadEpisode('One Piece - Episode 02 (English)', 'https://vimeo.com', 'Episode 2: Enter Zoro - The Pirate Hunter.')">
+                <div class="card-icon">⚔️</div>
+                <div class="card-name">One Piece Ep 2</div>
             </div>
-            <div class="movie-card" onclick="loadMovieBoxStream('Tears of Steel (Sci-Fi Animation)', 'https://vimeo.com', 'Dystopian visual effects masterclass track stream active on node 1.')">
-                <div class="card-icon">🤖</div>
-                <div class="card-name">Tears of Steel</div>
+            <div class="movie-card" onclick="loadEpisode('One Piece - Episode 03 (English)', 'https://vimeo.com', 'Episode 3: Captain Morgan vs Luffy battle!')">
+                <div class="card-icon">👑</div>
+                <div class="card-name">One Piece Ep 3</div>
             </div>
-            <div class="movie-card" onclick="loadMovieBoxStream('Sitcom Open Animation Asset', 'https://vimeo.com', 'Standard network graphic data asset stream processing smoothly loop.')">
-                <div class="card-icon">🐑</div>
-                <div class="card-name">Cosmos Short</div>
+            <div class="movie-card" onclick="loadEpisode('One Piece - Episode 04 (Hindi Dub)', 'https://vimeo.com', 'Episode 4: Red-Haired Shanks - The Straw Hat legacy.')">
+                <div class="card-icon">🗣️</div>
+                <div class="card-name">One Piece Ep 4</div>
             </div>
         </div>
 
-        <!-- Layout Section 2: Anime -->
-        <div class="section-title">anime</div>
-        <div class="cards-grid">
-            <div class="movie-card" onclick="loadMovieBoxStream('One Piece (Wano Arc Concept Stream)', 'https://vimeo.com', 'Straw Hat Pirates Wano arc animation conceptual streaming framework active.')">
-                <div class="card-icon">🏴‍☠️</div>
-                <div class="card-name">One Piece (Hindi)</div>
-            </div>
-            <div class="movie-card" onclick="loadMovieBoxStream('One Piece (English Dubbed Preview)', 'https://vimeo.com', 'Official English audio data stream tracks synchronizing directly with video nodes.')">
-                <div class="card-icon">👑</div>
+    </div>
+
+    <script>
+        // Switch between episodes dynamically
+        function loadEpisode(episodeTitle, videoUrl, description) {
+            var targetIframe = document.getElementById('cinema-iframe-stream');
+            targetIframe.src = videoUrl;
+            document.getElementById('cinema-title-node').innerText = episodeTitle + " - MovieBox Player";
+            document.getElementById('cinema-status-node').innerText = description;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Top Copy URL Logic
+        function copyMovieBoxURL() {
+            var currentURLString = window.location.href;
+            navigator.clipboard.writeText(currentURLString).then(function() {
+                alert("MovieBox App Link successfully copied: " + currentURLString);
+            }).catch(function(e) {
+                alert("Link copy error.");
+            });
+        }
+    </script>
+</body>
+</html>
